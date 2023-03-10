@@ -1,0 +1,54 @@
+docker run -p 4443:4443 --rm \
+    -e OPENVIDU_RECORDING=true \
+    -e OPENVIDU_RECORDING_PATH=/Users/rishurai/Desktop/VideoChatApp/recordings \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /Users/rishurai/Desktop/VideoChatApp/recordings:/Users/rishurai/Desktop/VideoChatApp/recordings \
+openvidu/openvidu-dev:2.25.0
+ 
+
+sudo docker run -p 4443:4443 --rm \
+-e OPENVIDU_SECRET=MY_SECRET \
+openvidu/openvidu-dev:2.25.0
+
+
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform 
+(linux/arm64/v8) and no specific platform was requested
+
+
+docker run -p 4443:4443 --rm \
+    -e OPENVIDU_RECORDING=true \
+    -e OPENVIDU_RECORDING_PATH=/home/vinit_arora/openvidu-recording-node/recordings \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /home/vinit_arora/openvidu-recording-node/recordings:/home/vinit_arora/openvidu-recording-node/recordings \
+openvidu/openvidu-dev:2.25.0 
+
+
+
+steps to run on clod:
+
+1. copy to vm:
+	@cloudshell:~() $  gcloud compute scp --recurse openvidu-recording-node/ instance-2: --zone asia-south2-a
+2. enter into vm
+	@cloudshell:~() $  gcloud compute ssh --zone "us-west4-b" "instance-1"  --project "openvidu-379419"
+
+
+3. npx express-generator --view=ejs myapp
+4. PORT=8000 DEBUG=myaapp* npm start
+ 
+
+problems:
+
+1. I am able to run docker and node js separately on cloud shell but they are not able to work together
+2. On virtual machine I am not able to run my application which is running on cloud shell.
+3. Cloud Shell needs to use the Storage Access API to function in your browser: this API is enabled but 
+
+
+APIs Enable
+
+Artifact Registry API
+
+
+
+
+
+
