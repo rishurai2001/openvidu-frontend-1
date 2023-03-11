@@ -1,6 +1,5 @@
 /* CONFIGURATION */
 require("dotenv").config(!!process.env.CONFIG ? {path: process.env.CONFIG} : {});
-
 var OpenVidu = require('openvidu-node-client').OpenVidu;
 var OpenViduRole = require('openvidu-node-client').OpenViduRole;
 
@@ -15,11 +14,11 @@ var bodyParser = require('body-parser'); // Pull information from HTML POST (exp
 var app = express(); // Create our app with express
 
 // Environment variable: PORT where the node server is listening
-var SERVER_PORT = process.env.SERVER_PORT ;
+var SERVER_PORT = process.env.SERVER_PORT || 5000;
 // Environment variable: URL where our OpenVidu server is listening
-var OPENVIDU_URL = process.env.OPENVIDU_URL || process.argv[2] ;
+var OPENVIDU_URL = process.env.OPENVIDU_URL || process.argv[2] || 'http://localhost:4443';
 // Environment variable: secret shared with our OpenVidu server
-var OPENVIDU_SECRET = process.env.OPENVIDU_SECRET || process.argv[3];
+var OPENVIDU_SECRET = process.env.OPENVIDU_SECRET || process.argv[3] || 'MY_SECRET';
 
 var useSSL = (process.env.USE_SSL === 'false') ? false : true
 
@@ -279,12 +278,8 @@ app.post('/recording-node/api/recording/start', function (req, res) {
     console.log("Starting recording | {sessionId}=" + sessionId);
 
     OV.startRecording(sessionId, recordingProperties)
-        .then(recording => {
-            console.log("successfully started");
-            res.status(200).send(recording)
-        })
-        .catch(error => {console.log(error.message+"\nfailed to start");
-        res.status(400).send(error.message)});
+        .then(recording => res.status(200).send(recording))
+        .catch(error => res.status(400).send(error.message));
 });
 
 // Stop recording
@@ -294,14 +289,8 @@ app.post('/recording-node/api/recording/stop', function (req, res) {
     console.log("Stopping recording | {recordingId}=" + recordingId);
 
     OV.stopRecording(recordingId)
-        .then(recording => {
-            console.log("successfully sttoped" );
-            res.status(200).send(recording)
-        })
-        .catch(error => {
-            console.log(error.message+"\nfailed to stop");
-            res.status(400).send(error.message)
-        });
+        .then(recording => res.status(200).send(recording))
+        .catch(error => res.status(400).send(error.message));
 });
 
 // Delete recording
